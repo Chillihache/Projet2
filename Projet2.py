@@ -20,10 +20,10 @@ def scraper_une_page(product_page_url) :
 # Elle créée une en-tête
 #Elle créée le fichier avec l'en-tête et les données récupérées
 def creation_fichier_csv(donnees_produit) :
-    nom_fichier_csv = "Extraction" + datetime.now().strftime("_%Y-%m-%d_%H-%M") + ".csv"
+    nom_fichier_csv = "Extraction_" + datetime.now().strftime("%Y-%m-%d_%H-%M") + ".csv"
     en_tete = ["product_page_url", "universal_product_code (upc)", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
     with open(nom_fichier_csv, "w") as fichier_csv :
-        writer = csv.writer(fichier_csv, delimiter=',')
+        writer = csv.writer(fichier_csv)
         writer.writerow(en_tete)
         writer.writerow(donnees_produit)
 
@@ -57,9 +57,10 @@ def trouver_price_excluding_tax(soup) :
     return price_excluding_tax
 
 # La fonction trouver_number_available permet de trouver la disponibilité du produit dans le code de la page produit (soup)
-# Elle repère la balise "th" contenant "Availability" et extrait la balise "td" frêre qui suit
+# Elle repère la balise "th" contenant "Availability" et extrait la balise "td" frêre qui suit puis retourne le nombre
 def trouver_number_available(soup) :
-    number_available = soup.find("th", string = "Availability").find_next_sibling("td").string
+    availability = soup.find("th", string = "Availability").find_next_sibling("td").string
+    number_available = availability.split()[2][1:]
     return number_available
 
 # La fonction trouver_prodcut_description permet de trouver la description du produit dans le code de la page produit (soup)
