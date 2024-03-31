@@ -51,7 +51,11 @@ def find_number_available(soup) :
 # La fonction find_product_description permet de trouver la description du produit dans le code de la page produit (soup)
 # Elle repère la balise avec l'id "product_description" et extrait la balise "p" soeur qui suit
 def find_product_description(soup) :
-    product_description = soup.find(id = "product_description").find_next_sibling("p").string
+    product_description = "Empty"
+    try :
+        product_description = soup.find(id = "product_description").find_next_sibling("p").string
+    except :
+        AttributeError
     return product_description
 
 # La fonction find_category permet de trouver la catégorie du produit dans le code de la page produit (soup)
@@ -90,7 +94,6 @@ def find_image_url(soup) :
 
 
 def scrape_a_product(product_page_url, url) :
-
 
     # Extrait le code de la page du produit à scraper
     soup = scrape_a_page(product_page_url)

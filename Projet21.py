@@ -25,7 +25,7 @@ def scrape_all_products(list_url_product, url) :
         list_data.append(Projet2.scrape_a_product(link, url))
     return list_data
 
-def find_next_page(soup, list_url_product) :
+def find_next_page(soup, list_url_product, url) :
 
     next_page_soup = soup
     while True :
@@ -48,7 +48,8 @@ def find_next_page(soup, list_url_product) :
 # Elle créée une en-tête (header)
 #Elle créée le fichier avec l'en-tête et les données contenues dans list_data
 def create_csv_file(list_data) :
-    name_csv_file = "Extraction_" + datetime.now().strftime("%Y-%m-%d_%H-%M") + ".csv"
+    category = list_data[0][7]
+    name_csv_file = "Extraction_" + category + datetime.now().strftime("_%Y-%m-%d_%H-%M") + ".csv"
     header = ["product_page_url", "universal_product_code (upc)", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
     with open(name_csv_file, "w", encoding="utf-8") as csv_file :
         writer = csv.writer(csv_file)
@@ -60,23 +61,21 @@ def create_csv_file(list_data) :
 #========================================FONCTION MAIN==================================================================
 #=======================================================================================================================
 
-url = "https://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html"
+def scrape_a_category(url) :
 
-# Appel la fonction scrape_a_page pour scraper la page d'une catégorie
-soup = Projet2.scrape_a_page(url)
+    # Appel la fonction scrape_a_page pour scraper la page d'une catégorie
+    soup = Projet2.scrape_a_page(url)
 
-# Appel la fonction find_url_product pour créer la liste des URL de chaque produit de la catégorie à partir de la page catégorie (soup)
-list_url_product_first_page = find_url_product(soup)
+    # Appel la fonction find_url_product pour créer la liste des URL de chaque produit de la catégorie à partir de la page catégorie (soup)
+    list_url_product_first_page = find_url_product(soup)
 
-list_url_product = find_next_page(soup, list_url_product_first_page)
+    list_url_product = find_next_page(soup, list_url_product_first_page, url)
 
-# Appel la fonction scrape_all_products pour scraper chaque produit à partir de la liste des URL de chaque produit de la catégorie
-list_data = scrape_all_products(list_url_product, url)
+    # Appel la fonction scrape_all_products pour scraper chaque produit à partir de la liste des URL de chaque produit de la catégorie
+    list_data = scrape_all_products(list_url_product, url)
 
-print(list_data)
-
-# Appel la fonction create_csv_file pour créer le fichier CSV avec les données de chaque prdoduit de la catégorie
-create_csv_file(list_data)
+    # Appel la fonction create_csv_file pour créer le fichier CSV avec les données de chaque prdoduit de la catégorie
+    create_csv_file(list_data)
 
 
 
