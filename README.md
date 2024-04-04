@@ -20,6 +20,7 @@ Fonctionnement des scripts
 -
 Ce programme est composé de trois scripts pyhton. Il est séparé selon les étapes de l'élaboration du projet.
 L'ensemble du code est en anglais cependant pour une compréhension interne plus précise, les commentaires sont en français.
+Le programme s'execute environ en 35 minutes.
 
 Le script "Scrape_a_product.py" n'est composé que de fonctions, dont une fonction main qui fait appel aux autres, il n'est donc pas executable seul. 
 Ce programme sert à récupérer des informations sur un produit du site "Books to scrape" à partir de l'URL de la page produit. 
