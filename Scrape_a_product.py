@@ -59,7 +59,7 @@ def find_category(soup, url) :
 
 # Trouve la note sur cinq du produit dans le code de la page produit (soup) :
 # Récupère le bloc html correspondant à la classe "star-rating"
-# Récupère l'intitulé complet de la classe et créée une liste de deux éléments : le string ("star-rating") et le string (valeur de la note écrit en lettre)
+# Récupère l'intitulé complet de la classe et créé une liste de deux éléments : le string ("star-rating") et le string (valeur de la note écrit en lettre)
 # Sélectionne le deuxième élément de la liste puis le retourne
 def find_review_rating(soup) :
     soup_class_star_rating = soup.find(class_ = "star-rating")
@@ -69,7 +69,7 @@ def find_review_rating(soup) :
 
 # Trouve l'url de l'image du produit dans le code de la page produit (soup) :
 # Extrait le contenu de la balise img
-# Récupère le lien src de l'image et le concactène pour retourner l'url
+# Récupère le lien src de l'image et le concatène pour retourner l'url
 def find_image_url(soup) :
     tag_img = soup.find("img")
     src_image = tag_img["src"]

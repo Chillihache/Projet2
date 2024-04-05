@@ -5,9 +5,9 @@ import os
 import requests
 import re
 
-# Trouve les URL des produits appartenant à une catégorie dans la page d'une catégorie (soup) :
+# Trouve les url des produits appartenant à une catégorie dans la page d'une catégorie (soup) :
 # Récupère toutes les balises "h3"
-# Créée et retourne une liste avec les liens "href" dans les balises "a"
+# Créé et retourne une liste avec les liens "href" dans les balises "a"
 def find_url_product(soup) :
     list_tags_product = soup.find_all("h3")
     list_url_product_first_page = []
@@ -15,11 +15,11 @@ def find_url_product(soup) :
         list_url_product_first_page.append("https://books.toscrape.com/catalogue" + product.find("a").get("href")[8:])
     return list_url_product_first_page
 
-# Vérifie la présence d'autres pages et ajoute les URL des produits dans celles-ci :
+# Vérifie la présence d'autres pages et ajoute les url des produits dans celles-ci :
 # Recherche une balise "next" et récupère le lien de la page suivante dans la balise
 # Utilise la fonction "scrape_a_page" pour récupérer le code de la page suivante
-# Récupère les URL des produits dans la page suivante et les ajoute à la liste des URL des produits de la catégorie
-# Recommance tant qu'il existe une page suivante puis retourne la liste des URL complète
+# Récupère les url des produits dans la page suivante et les ajoute à la liste des url des produits de la catégorie
+# Recommence tant qu'il existe une page suivante puis retourne la liste des url complète
 def find_next_page(soup, list_url_product, url) :
 
     next_page_soup = soup
@@ -94,16 +94,16 @@ def scrape_a_category(url) :
     # Extrait le code la page d'une catégorie
     soup = Scrape_a_product.scrape_a_page(url)
 
-    # Crée la liste des URL des produits de la catégorie à partir de la page catégorie (soup)
+    # Créé la liste des url des produits de la catégorie à partir de la page catégorie (soup)
     list_url_product_first_page = find_url_product(soup)
 
-    # Vérifie la présence d'autres pages et ajoute les URL des produits de celles-ci
+    # Vérifie la présence d'autres pages et ajoute les url des produits de celles-ci
     list_url_product = find_next_page(soup, list_url_product_first_page, url)
 
     # Scrape tous les produits de la catégorie
     list_data = scrape_all_products(list_url_product, url)
 
-    # Crée le fichier CSV avec les données de chaque prdoduit de la catégorie
+    # Créé le fichier CSV avec les données de chaque produit de la catégorie
     create_csv_file(list_data)
 
     # Télécharge les images des produits de la catégorie
