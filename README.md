@@ -5,9 +5,9 @@ l'appliquer à d'autres site.
 Ce projet a débuté en mars 2024 et sera soumis pour validation début avril 2024.
 
 Le dépôt comprend les fichiers suivants :
-- Script Python "Scrape_books_to_scrape.py"
-- Script Python "Scrape_a_category.py"
-- Script Python "Scrape_a_product.py"
+- Script Python "scrape_books_to_scrape.py"
+- Script Python "scrape_category.py"
+- Script Python "scrape_product.py"
 - Fichier ".gitignore"
 - Fichier "requirements.txt"
 - Fichier "readme.md"
