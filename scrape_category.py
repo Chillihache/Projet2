@@ -50,8 +50,8 @@ def create_csv_file(list_data):
     category = list_data[0][7]
     name_csv_file = "Extraction/Extraction_" + category + datetime.now().strftime("_%Y-%m-%d_%H-%M") + ".csv"
     header = ["product_page_url", "universal_product_code (upc)", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
-    with open(name_csv_file, "w", encoding="utf-8") as csv_file:
-        writer = csv.writer(csv_file)
+    with open(name_csv_file, "w", encoding="utf-8", newline='') as csv_file:
+        writer = csv.writer(csv_file, delimiter=';')
         writer.writerow(header)
         for data_product in list_data:
             writer.writerow(data_product)
